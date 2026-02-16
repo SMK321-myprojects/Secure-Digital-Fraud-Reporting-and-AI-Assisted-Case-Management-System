@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Tickets</title>
+
+<style>
+body {
+    background: #fff7f9;
+    font-family: Arial;
+    padding: 30px;
+}
+
+h2 {
+    text-align: center;
+    color: rgb(221, 54, 90);
+    font-family: 'Trebuchet MS', Arial;
+}
+
+table {
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    margin-top: 30px;
+    
+}
+
+th {
+    background: #ffb288;
+    color: white;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+a {
+    color: firebrick;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+/* ===== Stats ===== */
+.stats {
+    padding: 30px 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: #ffffff;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: 0.25s;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+}
+
+.stat-card h4 {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.stat-card span {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+.open span { color: #e63946; }
+.progress span { color: #f4a261; }
+.closed span { color: #2a9d8f; }
+
+.search{
+    width: 450px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-left: 35%;
+}
+
+.search input{
+    width: 300px;
+    height: 30px;
+    outline: none;
+    border-radius: 8px;
+    border: 1px solid crimson;
+    color: #ff848f;
+    font-size: 14px;
+    padding-left: 14px;
+    font-weight: 600;
+}
+
+.search input:focus{
+    border: 3px solid crimson;
+}
+
+#get{
+    width: 100px;
+    height: 30px;
+    border-radius: 7px;
+    background-color:#fdfbfb;
+    color: firebrick;
+    font-weight: 600;
+    border: 2px solid firebrick;
+}
+
+#get:hover{
+    background-color: #e63946;
+    color: white;
+    cursor: pointer;
+}
+
+#main-heading{
+    width: 350px;
+    height: 50px;
+    margin-left: 35%;
+    border-bottom: 3px solid firebrick;
+    border-top: 3px solid firebrick;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+#main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-right: 25%;
+}
+</style>
+</head>
+
+<body>
+
+<div id="main">
+
+<div id="main-heading">
+<h2>My Tickets</h2>
+</div>
+
+<div class="search">
+<form th:action="@{/mytickets}" method="get">
+<input type="text" id="ticketSearch" placeholder="Ticket ID" name="ticketId">
+<button id="get" type="submit">Get Ticket</button>
+</form>
+</div>
+
+</div>
+
+
+<table id="ticketTable" th:if="${searched}">
+
+<tr>
+<th>ID</th>
+<th>Title</th>
+<th>Incident</th>
+<th>Status</th>
+<th>Date</th>
+</tr>
+
+<tr th:each="t : ${tickets}">
+<td class="ticket-id" th:text="${t.id}">1</td>
+<td th:text="${t.title}">Sample Title</td>
+<td th:text="${t.incidentType}">Network</td>
+<td th:text="${t.status}">OPEN</td>
+<td th:text="${#temporals.format(t.createdAt, 'dd MMM yyyy')}">01 Jan 2026</td>
+</tr>
+
+</table>
+
+<p th:if="${searched and tickets.isEmpty()}">
+    Ticket not found.
+</p>
+
+<!-- STATS -->
+<section class="stats">
+
+<div class="stat-card">
+<h4>Total Tickets</h4>
+<span th:text="${totalTickets}">0</span>
+</div>
+
+<div class="stat-card open">
+<h4>Open</h4>
+<span th:text="${openTickets}">0</span>
+</div>
+
+<div class="stat-card progress">
+<h4>In Progress</h4>
+<span th:text="${progressTickets}">0</span>
+</div>
+
+<div class="stat-card closed">
+<h4>Resolved</h4>
+<span th:text="${closedTickets}">0</span>
+</div>
+
+</section>
+
+<a th:href="@{/dashboard}">⬅ Back to Dashboard</a>
+
+<!--  script>
+const searchInput = document.getElementById("ticketSearch");
+const searchBtn = document.getElementById("get");
+const table = document.getElementById("ticketTable");
+
+if (searchBtn && table) {
+
+    const rows = table.querySelectorAll("tr:not(:first-child)");
+
+    searchBtn.addEventListener("click", function () {
+
+        const value = searchInput.value.trim();
+        let found = false;
+
+        rows.forEach(row => {
+
+            const ticketId = row.querySelector(".ticket-id").innerText;
+
+            if (ticketId === value) {
+                row.style.display = "";
+                found = true;
+            } else {
+                row.style.display = "none";
+            }
+
+        });
+
+        table.style.display = found ? "table" : "none";
+    });
+}
+</script-->
+
+</body>
+</html>

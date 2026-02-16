@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffdede;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            border-radius: 8px;
+            flex-direction:column;
+            gap:15px;
+        }
+
+        #card {
+            width: 350px;
+            padding: 60px;
+            /* background: #ff90216d; */
+            background-color: #ffffff;
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            /* gap: 15px; */
+            align-items: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 3px solid #af5920;
+        }
+
+        #card h2 {
+            margin-bottom: 20px;
+            color: #af5920;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            letter-spacing: 1px;
+            border: 3px solid #af5920;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            border-radius: 15px;
+            padding: 10px;
+        }
+
+        #card form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #card input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            transition: transform 0.3s ease-in-out;
+            color:#764918;
+            letter-spacing: 1px;
+            outline: none;
+            
+        }
+        #card input:focus{
+            border: 2px solid #af5920;
+        }
+        #card input:hover{
+            transform: scale(1.03);
+        }
+        #card input::placeholder{
+            color: #e98204;
+            letter-spacing: 1px;
+        }
+        
+
+        #btn {
+            width: 50%;
+            padding: 10px;
+            border: 3px solid #af5920;
+            border-radius: 10px;
+            background:#fff5f5;
+            color:#764918;
+            font-weight:600;
+            cursor: pointer;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+
+        #btn:hover {
+            background: #764918;
+            color: bisque;
+            border: transparent;
+        }
+        #card a{
+            text-decoration: none;
+            color: #e98204;
+            margin-top: 0.6em;
+            font-size: 14px;
+        }
+        #card a:hover{
+            color: #af5920;
+            
+        }   
+                .error-msg{
+    margin-top: 3%;
+    font-size: 16px;
+    color: #d94b4b;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    padding: 14px 20px;
+    border-radius: 12px;
+
+    background: linear-gradient(135deg, #fffefe, #ffecec);
+    border-left: 8px solid #d94b4b;
+
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+
+    display: none;
+    animation: slideFade 0.4s ease-out;
+}
+@keyframes slideFade {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="card">
+        <h2>Admin Login</h2>
+
+        <form th:action="@{/admin/login}" method="post">
+            <input type="email" name="email" placeholder="Admin Email" autocomplete="off" required>
+            <input type="password" name="password" placeholder="Password" autocomplete="new-password" required>
+
+            <button type="submit" id="btn">Login</button>
+
+            <a th:href="@{/admin/adminforgot}">Forgot Password ?</a>
+        </form>
+    </div>
+   
+   <div class="error-msg" th:style="${error!=null} ? 'display:inline-block' : 'display:none'">
+        <span th:text="${error}">Error Msg</span>
+   </div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot password</title>
+    <style>
+        body{
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #ffdede;
+        }
+        .card{
+            width:450px;
+            background-color: rgb(255, 255, 255);
+            padding: 20px;
+            border: 3px solid #af5920;;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items:center;
+            gap: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .card h2{
+            color :#af5920 ;
+            text-align: center;
+            margin: 0 0 20px 0;
+            border: 3px solid #af5920;
+            padding: 8px;
+            border-radius:10px;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        .card form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .card input{
+            width: 50%;
+            outline: none;
+            padding: 8px;
+            border: none;
+            padding: 10px;
+            align-items: center;
+            margin-left: 0.5em;
+            color:#764918;
+            border-radius: 8px;
+        }
+        
+        .card input::placeholder{
+            color:#764918;
+            letter-spacing: 1px;
+            font-size: 12px;
+        }
+        
+        .card input:focus{
+            border: 2px solid #af5920;
+            transform: scale(1.03);
+            transition: transform 0.3s ease-in-out;
+        }
+        .card button{
+            width: 30%;
+            margin-left: 9em;
+            padding: 6px;
+            border: 3px solid #af5920;
+            border-radius: 8px;
+            background-color: transparent;
+            color:#764918;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .card button:hover{
+            background-color: #af5920;
+            color: rgb(255, 247, 237);
+            cursor: pointer;
+            
+        }
+        .password-field {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-field input {
+           width: 90%;
+        }
+
+        .eye {
+          position: absolute;
+          right: 35px;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+          font-size: 15px;
+        }
+        
+
+    </style>
+</head>
+<body>
+    
+    <div class="card">
+        <h2>Forgot password</h2>
+        <form th:action="@{/reset_password}" method="post">
+        
+           <div class="password-field">
+           <input type="email" th:name="email" placeholder="Registered Email" autocomplete="off" required>
+           </div>
+            <div class="password-field">
+               <input type="password" id="newPwd" placeholder="New Password" th:name="newPassword" autocomplete="new-password" oncut="return false"
+       ondragstart="return false" ondrop="return false" oncopy="return false" onpaste="return false" required>
+              <span class="eye" onclick="togglePwd('newPwd', this)">🙈</span>
+            </div>
+
+            <div class="password-field">
+               <input type="password" id="confirmPwd" placeholder="Confirm Password" th:name="confirmPassword" autocomplete="new-password" oncut="return false"
+       ondragstart="return false" ondrop="return false" oncopy="return false" onpaste="return false"  required>
+               <span class="eye" onclick="togglePwd('confirmPwd', this)">🙈</span>
+            </div>
+
+             <button class="confirm">Confirm</button>
+        </form>
+
+    </div>
+
+    <script>
+function togglePwd(id, icon) {
+    const input = document.getElementById(id);
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.textContent = "🐵"; // eyes open
+    } else {
+        input.type = "password";
+        icon.textContent = "🙈"; // eyes closed
+    }
+}
+</script>
+
+</body>
+</html>

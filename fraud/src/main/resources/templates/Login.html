@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fraud Report Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            /* font-family: "Segoe UI", sans-serif; */
+            background: url("scambg1.jpg") center / cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 120px;
+            transition: background 0.6s ease;  
+        }
+           body.has-error {
+                gap: 50px;
+          }
+           
+
+        /* ================= PORTAL HEADER ================= */
+.portal-header {
+    width: 40%;
+    /* height: 70px; */
+    background-color: #a16767;
+    overflow: hidden;
+    border-radius: 16px;
+    /* box-shadow: 0 2px 12px rgba(0,0,0,0.08); */
+    display: flex;
+    align-items: center;
+    color: #ff5050;
+    margin-top: 2%;
+    margin-left: 8%;
+    padding: 5px;
+}
+
+.scroll-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.scroll-container span {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #0b60cf;
+    letter-spacing: 0.8px;
+    padding-left: 100%;
+   animation: scrollText 5s linear infinite;
+
+}
+
+@keyframes scrollText {
+    from {
+        transform: translateX(0); /* start completely offscreen right */
+    }
+   to{
+        transform: translateX(-100%); /* move completely offscreen left */
+    }
+}
+
+#scroll-heading{
+    font-size: 22px;
+    font-weight: 700;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #d1495b;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    font-family: 'Trebuchet MS', sans-serif;
+}
+     #mar { 
+        display: inline-block; 
+        background: linear-gradient(90deg, #fff, #ffe6e6); 
+        border-radius: 25px; 
+        padding: 10px 25px; 
+        margin-top: 0.2em;
+        margin-bottom: 0.2em;
+         box-shadow: 0 6px 15px rgba(0,0,0,0.15); 
+        }
+
+        /* ================= LOGIN CARD ================= */
+        .card {
+            width: 430px;
+            background: rgba(229, 104, 122, 0.9);
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: all 0.6s ease;
+            display: none;
+            backdrop-filter: blur(8px);
+            margin-top: 10em;
+        }
+
+        .card.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        h2 {
+            text-align: center;
+            color: ivory;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 8px;
+            background: #000;
+            color: lightcoral;
+            border: none;
+            outline: none;
+            letter-spacing:1px;
+            
+        }
+
+        input::placeholder {
+            color: #cfcfcf;
+            letter-spacing:1px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #ff5050, #ff7a7a);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 15px;
+            color: ivory;
+            letter-spacing: 1px;
+        }
+
+        .link a {
+            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+       /* ================= LOGIN CTA ================= */
+        .btn {
+            width: 120px;
+            height: 40px;
+            background: rgba(229, 104, 122, 0.9);
+            border-radius: 14px;
+            box-shadow:
+                6px 6px 14px rgba(0,0,0,0.7),
+               -6px -6px 14px rgba(0,0,0,0.7);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            letter-spacing: 1.5px;
+            position: relative;
+            overflow: hidden;
+            perspective: 700px;
+            transition: transform 0.3s ease;
+            
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            background-color: #fffefe;
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(180, 50, 70, 0.95),
+                rgba(255, 150, 160, 0.95)
+            );
+            border-radius: 14px;
+            transform-origin: top;
+            transform: rotateX(0deg);
+            transition: transform 0.55s ease;
+        }
+
+        .btn:hover::before {
+            transform: rotateX(-110deg);
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+            color: rgba(180, 50, 70, 0.95);
+            font-size: 22px;
+            font-family:Georgia, 'Times New Roman', Times, serif;
+            opacity: 0;
+            transition: opacity 0.25s ease 0.25s;
+        }
+
+        .btn:hover span {
+            opacity: 1;
+        }
+
+/* ================= CAROUSEL ================= */
+
+.crime-carousel {
+    width: 60%;
+    overflow: hidden;
+    border-radius: 20px;
+    margin-top: -20px;
+    transition: opacity 0.6s ease;
+}
+
+.carousel-track {
+    display: flex;
+    width: max-content;
+    gap: 1em;
+    animation: scroll 25s linear infinite;
+}
+
+.crime-carousel:hover .carousel-track {
+    animation-play-state: paused;
+}
+
+.grp {
+    display: flex;
+    gap: 1em;
+}
+
+.image {
+    width: 250px;
+    height: 250px;
+    border-radius: 32px;
+    overflow: hidden;
+    flex-shrink: 0;          /* prevents resizing in flex */
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.image:hover {
+    transform: scale(1.06);
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;       /* IMPORTANT FIX */
+    display: block;
+    background: #fff;
+}
+
+/* Smooth infinite scroll */
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+
+     #scroll-heading {
+    font-size: 22px;
+    font-weight: 700;
+    color: #d1495b;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+
+
+.forgot{
+    margin-top: 0.5em;
+    text-align: center;
+}
+.forgot a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+
+.error-msg{
+    margin-top: 3%;
+    font-size: 32px;
+    color: #d94b4b;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    padding: 14px 20px;
+    border-radius: 12px;
+
+    background: linear-gradient(135deg, #fffefe, #ffecec);
+    border-left: 8px solid #d94b4b;
+
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+
+    display: none;
+    animation: slideFade 0.4s ease-out;
+}
+@keyframes slideFade {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+</head>
+
+<body th:classappend="${error != null} ? 'has-error' : ''">
+
+    <div class="portal-header" th:if="${error == null}">
+     <marquee scrollamount="20" direction="left" behavior="alternate">
+        <div id="mar">
+        <span id="scroll-heading">Secure Digital Fraud Reporting</span>
+        </div>
+     </marquee>
+     </div>
+
+
+
+
+
+
+    <!-- LOGIN CARD -->
+    <div class="card" th:classappend="${error != null} ? ' show' : ''" th:style="${error != null} ? 'display:block' : 'display:none'">
+
+        <h2>Login for Report</h2>
+
+        <form th:action="@{/auth/login}" method="post">
+           <input type="email" name="email" placeholder="Email" autocomplete="off" required>
+           <input type="password" name="password" placeholder="Password" autocomplete="new-password" required>
+           <button type="submit">Login</button>
+       </form>
+
+
+        <div class="link">
+            New user ? <a th:href="@{/register}">Register here</a>
+        </div>
+        <div class="forgot">
+            <a th:href="@{/forgot}">Forgot Password</a>
+        </div>
+        
+    </div>
+
+    <!-- CAROUSEL -->
+    <div class="crime-carousel" th:if="${error == null}">
+        <div class="carousel-track">
+
+            <div class="grp">
+                <div class="image"><img src="fakewebsite.png"></div>
+                <div class="image"><img src="Giveaway.jpg"></div>
+                <div class="image"><img src="otpscam.jpg"></div>
+                <div class="image"><img src="govtofficialscams.png"></div>
+                <div class="image"><img src="techsupportscam.png"></div>
+            </div>
+
+            <div class="grp" aria-hidden="true">
+                <div class="image"><img src="fakewebsite.png"></div>
+                <div class="image"><img src="Giveaway.jpg"></div>
+                <div class="image"><img src="otpscam.jpg"></div>
+                <div class="image"><img src="govtofficialscams.png"></div>
+                <div class="image"><img src="techsupportscam.png"></div>
+            </div>
+
+        </div>
+    </div>
+    
+     <div class="error-msg" th:style="${error!=null} ? 'display:inline-block' : 'display:none'">
+        <span th:text="${error}">Error Msg</span>
+     </div>
+
+    <!-- LOGIN BUTTON -->
+    <div class="btn" th:if="${error == null}" onclick="openLogin()">
+        <span>Login</span>
+    </div>
+
+    <script>
+        function openLogin() {
+            const card = document.querySelector('.card');
+            card.style.display = 'block';
+
+            requestAnimationFrame(() => {
+                card.classList.add('show');
+            });
+            
+            document.body.style.background = 'url("scambg1.jpg") center / cover no-repeat';
+                
+
+            document.querySelector('.btn').style.display = 'none';
+            document.querySelector('.crime-carousel').style.display = 'none';
+            document.querySelector('.portal-header').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>

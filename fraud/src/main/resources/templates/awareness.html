@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Awareness</title>
+
+    <link rel="stylesheet" th:href="@{/css/awareness.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #fffbf8, #ffe3d0);
+    display: flex;
+}
+
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: #111;
+    color: #fff;
+    padding: 25px;
+    position: fixed;
+}
+
+.logo {
+    margin-bottom: 40px;
+    font-size: 22px;
+    border-radius: 6px;
+}
+
+.sidebar nav a {
+    display: block;
+    padding: 12px;
+    margin-bottom: 8px;
+    color: #fb923c;
+    cursor: pointer;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 
+                background 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                color 0.25s ease;
+}
+
+.sidebar nav a.active,
+.sidebar nav a:hover {
+    background: linear-gradient(135deg, #fb923c, #f97316);
+    color: #fff;
+    transform: translateX(6px) scale(1.02);
+    box-shadow: 0 6px 18px rgba(251, 146, 60, 0.45);
+}
+
+.sidebar h2{
+    border: 2px solid salmon;
+    font-size: 22px;
+    text-align: center;
+    padding: 8px;
+    letter-spacing: 1px;
+    color: #fb923c;
+}
+/* Main */
+.main {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 30px;
+}
+
+/* Header */
+
+.topbar{
+    border-top: 4px solid saddlebrown;
+    border-bottom: 4px solid saddlebrown;
+    width: 450px;
+    padding: 12px;
+    margin-left: 30%;
+    border-radius: 16px;
+    box-shadow:  0 8px 25px rgba(0, 0, 0, 0.25);
+}
+.topbar h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: center;
+    color: #c05c15;
+    text-shadow:  0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.topbar p {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    color: #5e2f0d;
+}
+
+
+/* Brands */
+.brands {
+    display: flex;
+    gap: 30px;
+    margin: 30px 0;
+    opacity: 0.8;
+}
+
+.brands img {
+    height: 120px;
+    width: 180px;
+    border-radius: 16px;
+    box-shadow:  0 2px 3px rgba(0, 0, 0, 0.25);
+}
+
+/* Sections */
+.section {
+    margin-bottom: 40px;
+}
+
+.section h2 {
+    margin-bottom: 20px;
+}
+
+/* Articles */
+.articles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: stretch;
+
+}
+
+.section h2{
+    color: #c05c15;
+}
+
+.card {
+    margin-top: auto; 
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card h3 {
+    margin: 10px 0;
+    
+}
+
+.card p {
+    color: #475569;
+    font-size: 14px;
+}
+
+.source {
+    display: block;
+    margin-top: 15px;
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* Tags */
+.tag {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    width: 120px;
+    text-align: center;
+}
+
+.red { background: #fee2e2; color: #991b1b; }
+.orange { background: #ffedd5; color: #9a3412; }
+.blue { background: #dbeafe; color: #1e40af; }
+
+/* Videos */
+.videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.video-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.thumb {
+    height: 140px;
+    background: linear-gradient(135deg, #1e293b, #334155);
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.thumb img{
+    width: 100%;
+    height: 100%;
+}
+
+.video-card p {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.video-card span {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.dashboard-btn {
+    display: block; 
+    width: 150px;
+    height: 40px;
+    background: linear-gradient(135deg, #fb923c, #f97316);
+    margin-top: 21em; 
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 1px;
+    
+}
+.dashboard-btn,
+.dashboard-btn:link,
+.dashboard-btn:visited,
+.dashboard-btn:hover,
+.dashboard-btn:active {
+    color: #fff;
+    
+}
+
+
+.dashboard-btn:hover {
+    transform:translateX(3px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
+    background: linear-gradient(135deg, #6ba7f7, #1d5fc0);
+}
+
+.click-here {
+    
+    /* align-self: flex-end; */
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #614522;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.click-here:hover {
+    text-decoration: none;
+    cursor:pointer;
+    color: #1d4ed8;
+    transform: translateX(3px);
+}
+.video-card a{
+    text-decoration: none;
+    gap: 15px;
+    color: #f97316;
+    font-size: 14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+    <h2 class="logo">CyberWatch</h2>
+    <nav>
+        <a th:href="@{/newsarticles}">News Articles</a>
+        <a th:href="@{/trendingvideos}">Trending Videos</a>
+        <a>Fraud Types</a>
+        <a>Safety Tips</a>
+        <a th:href="@{/dashboard}" class="dashboard-btn">Dashboard</a>
+    </nav>
+</aside>
+
+<!-- Main Content -->
+<main class="main">
+
+    <!-- Header -->
+    <header class="topbar">
+        <h1>Scams & Fraud Awareness</h1>
+        <p>Verified reports, real news, trending incidents</p>
+    </header>
+
+    <!-- News Brands -->
+    <section class="brands">
+        <img th:src="@{/THE_HINDHUpng.png}" alt="">
+        <img th:src="@{/deccanchroniclepng.png}" alt="">
+        <img th:src="@{/TOIpng.png}" alt="">
+        <img th:src="@{/Newyork_Times.png}" alt="">
+        <img th:src="@{/hindhusthantimes.jpg}" alt="">
+        <img th:src="@{/eenadulogo.jpg}" alt="">
+    </section>
+
+    <!-- Articles -->
+    <section class="section">
+        <h2>Scam & Fraud Info</h2>
+
+        <div class="articles">
+
+            <div class="card">
+                <span class="tag red">Job Scam</span>
+                <h3>Fake Job Offers Target Fresh Graduates</h3>
+                <p>Hyderabad youth duped 1.5 lakh in fake job scam.</p>
+                <span class="source">Hyderabad Mail</span>
+                <a href="https://hyderabadmail.com/hyderabad-job-fraud-fake-part-time-offers-cybercrime-arrests/"
+                   target="_blank"
+                   class="click-here">Click here 👇</a>
+            </div>
+
+            <div class="card">
+                <span class="tag orange">Scam Types</span>
+                <h3>Types of scams and frauds</h3>
+                <p>Learn about the most common scams and frauds reported worldwide.</p>
+                <span class="source">Federal Bureau of Investigation</span>
+                <a href="https://www.fbi.gov/how-we-can-help-you/scams-and-safety/common-frauds-and-scams"
+                   target="_blank"
+                   class="click-here">Click here 👇</a>
+            </div>
+
+            <div class="card">
+                <span class="tag blue">Identity Theft</span>
+                <h3>Aadhaar & PAN Used in Loan Scams</h3>
+                <p>Fraudsters misuse leaked personal data for instant loan apps.</p>
+                <span class="source">Times of India</span>
+                <a href="https://timesofindia.indiatimes.com/technology/tech-tips/pan-2-0-scam-warning-fraud-emails-stealing-pan-aadhaar-and-bank-details-know-how-to-stay-safe-and-other-important-information/articleshow/122873544.cms"
+                   target="_blank"
+                   class="click-here">Click here 👇</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Videos -->
+    <section class="section">
+        <h2>Trending Scam Videos</h2>
+
+        <div class="videos">
+
+            <div class="video-card">
+                <div class="thumb">
+                    <img th:src="@{/scam-money-graphi.jpg}" alt="">
+                </div>
+                <p>What is a Scam</p>
+                <a href="https://www.youtube.com/watch?v=IakRxxZ8jcE"
+                   target="_blank">Click here 👇</a>
+            </div>
+
+            <div class="video-card">
+                <div class="thumb">
+                    <img th:src="@{/fraud.jpg}" alt="">
+                </div>
+                <p>What is Fraud</p>
+                <a href="https://www.youtube.com/watch?v=LqGyt20LtaE"
+                   target="_blank">Click here 👇</a>
+            </div>
+
+            <div class="video-card">
+                <div class="thumb">
+                    <img th:src="@{/atmsscams.jpg}" alt="">
+                </div>
+                <p>Scammers trick users at ATMs to steal card details and PINs.</p>
+                <a href="https://www.youtube.com/watch?v=ADfGCGuT7K4"
+                   target="_blank">Click here 👇</a>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+</body>
+</html>
