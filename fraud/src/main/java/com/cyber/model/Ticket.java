@@ -36,7 +36,7 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
+//It maintains the relation between the user and ticket tables in the db.
     // getters and setters
     
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
