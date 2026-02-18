@@ -23,7 +23,9 @@ The project focuses on enhancing digital safety through intelligent automation, 
 ✨ AI Bot Features
 
 🔸 💬 Guides users on how to report scams
+
 🔸 🧭 Navigates users to the scam reporting page or awareness section
+
 🔸 📌 Assists users during the reporting process to ensure correct submission
 
 👤 User Portal
