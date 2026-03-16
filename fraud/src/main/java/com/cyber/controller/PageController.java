@@ -1,6 +1,7 @@
 package com.cyber.controller;
 
 import java.io.IOException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cyber.config.EmailConfiguration;
-import com.cyber.config.PasswordConfig;
+//import com.cyber.config.PasswordConfig;
 import com.cyber.model.Ticket;
 import com.cyber.model.TicketStatus;
 import com.cyber.model.User;
