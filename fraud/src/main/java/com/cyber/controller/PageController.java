@@ -40,6 +40,10 @@ public class PageController {
     private PasswordEncoder passwordEncoder;
 
 
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/login";
+    }
 
     @GetMapping("/login")
     public String loginPage() {
